@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatistutorial.repository.DemoMapper">
+
+    <resultMap id="demoResultMap" type="com.example.mybatistutorial.bean.Sample">
+        <constructor>
+            <arg name="key"  javaType="String" column="skey"  />
+            <arg name="memo" javaType="String" column="memo" />
+        </constructor>
+    </resultMap>
+
+    <select id="findSample" parameterType="String" resultMap="demoResultMap">
+        SELECT * FROM sample WHERE skey = #{key}
+    </select>
+
+    <insert id="registSample" 
+        keyProperty="key" 
+        parameterType="com.example.mybatistutorial.bean.Sample"
+        timeout="20">
+        insert into sample (skey, memo)
+        values (#{key},#{memo})
+    </insert>
+
+</mapper>
